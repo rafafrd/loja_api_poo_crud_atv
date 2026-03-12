@@ -2,10 +2,6 @@ import { ResultSetHeader } from "mysql2";
 import {db} from "../database/db.connection";
 import { Categoria, ICategoria } from "../models/categoria.model";
 
-// ============================================================
-// Repository — Categoria
-// Fronteira entre a lógica de negócio e o banco de dados
-// ============================================================
 export class CategoriaRepository {
 
   /**

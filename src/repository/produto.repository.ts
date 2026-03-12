@@ -2,9 +2,6 @@ import { ResultSetHeader } from "mysql2";
 import {db} from "../database/db.connection";
 import { Produto, IProduto } from "../models/produto.model";
 
-// ============================================================
-// Repository — Produto
-// ============================================================
 export class ProdutoRepository {
 
   /**
