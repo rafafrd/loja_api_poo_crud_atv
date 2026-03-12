@@ -9,7 +9,6 @@ export interface IProduto extends RowDataPacket {
   vinculo_imagem: string | null;
 }
 
-// Classe de Entidade Rica — Produto
 export class Produto {
   private readonly _id:    number | null;
   private _nome:           string;

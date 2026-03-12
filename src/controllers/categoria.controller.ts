@@ -15,7 +15,7 @@ export class CategoriaController {
   listarTodos = async (_req: Request, res: Response): Promise<void> => {
     try {
       const categorias = await this._service.listarTodos();
-      res.status(200).json(categorias);
+      res.status(200).json({ "categorias": categorias });
     } catch (error: any) {
       res.status(500).json({ mensagem: error.message });
     }
@@ -33,7 +33,7 @@ export class CategoriaController {
         return;
       }
       const categoria = await this._service.buscarPorId(id);
-      res.status(200).json(categoria);
+      res.status(200).json({ "categoria": categoria });
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }
@@ -52,7 +52,7 @@ export class CategoriaController {
         return;
       }
       const novaCategoria = await this._service.criar(nome);
-      res.status(201).json(novaCategoria);
+      res.status(201).json({ "categoria": novaCategoria });
     } catch (error: any) {
       res.status(400).json({ mensagem: error.message });
     }
@@ -76,7 +76,7 @@ export class CategoriaController {
         return;
       }
       const categoriaAtualizada = await this._service.editar(id, nome);
-      res.status(200).json(categoriaAtualizada);
+      res.status(200).json({ "categoria": categoriaAtualizada });
     } catch (error: any) {
       res.status(400).json({ mensagem: error.message });
     }
