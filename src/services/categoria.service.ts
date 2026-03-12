@@ -1,8 +1,6 @@
 import { Categoria } from "../models/categoria.model";
 import { CategoriaRepository } from "../repository/categoria.repository";
 
-// Service — Categoria
-// Orquestra regras de negócio e integração entre camadas
 export class CategoriaService {
   private readonly _repository: CategoriaRepository;
 
