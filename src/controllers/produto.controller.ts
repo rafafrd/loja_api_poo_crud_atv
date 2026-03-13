@@ -128,7 +128,9 @@ export class ProdutoController {
         return;
       }
       await this._service.deletar(id);
-      res.status(204).setHeader("X-Message", "Produto removido com sucesso.").send();
+      res.status(200)
+        .setHeader("X-Message", "Produto removido com sucesso.")
+        .json({ message: "Delete efetuado com sucesso." });
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }

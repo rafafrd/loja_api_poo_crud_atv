@@ -83,7 +83,9 @@ export class ClienteController {
       if (Number.isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       await this._service.deletar(id);
-      res.status(204).setHeader("X-Message", "Cliente removido com sucesso.").send();
+      res.status(200)
+        .setHeader("X-Message", "Cliente removido com sucesso.")
+        .json({ message: "Delete efetuado com sucesso." });
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }

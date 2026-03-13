@@ -12,7 +12,7 @@
       "_type": "request_group",
       "_id": "fld_categorias",
       "parentId": "wrk_001",
-      "name": "📁 Categorias"
+      "name": "Categorias"
     },
     {
       "_type": "request",
@@ -72,7 +72,7 @@
       "_type": "request_group",
       "_id": "fld_produtos",
       "parentId": "wrk_001",
-      "name": "📁 Produtos"
+      "name": "Produtos"
     },
     {
       "_type": "request",
@@ -140,7 +140,7 @@
       "_type": "request_group",
       "_id": "fld_clientes",
       "parentId": "wrk_001",
-      "name": "📁 Clientes"
+      "name": "Clientes"
     },
     {
       "_type": "request",
@@ -200,7 +200,7 @@
       "_type": "request_group",
       "_id": "fld_vendedores",
       "parentId": "wrk_001",
-      "name": "📁 Vendedores"
+      "name": "Vendedores"
     },
     {
       "_type": "request",
@@ -260,7 +260,7 @@
       "_type": "request_group",
       "_id": "fld_pedidos",
       "parentId": "wrk_001",
-      "name": "📁 Pedidos"
+      "name": "Pedidos"
     },
     {
       "_type": "request",
