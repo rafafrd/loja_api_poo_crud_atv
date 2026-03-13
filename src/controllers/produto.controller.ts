@@ -1,5 +1,23 @@
 import { Request, Response } from "express";
-import { ProdutoService } from "../services/produto.service";
+import { ProdutoService }    from "../services/produto.service";
+
+/**
+ * Verifica se um valor está ausente (undefined, null ou string vazia).
+ */
+const ausente = (valor: any): boolean =>
+  valor === undefined || valor === null || String(valor).trim() === "";
+
+/**
+ * Verifica se um valor não pode ser convertido para número válido.
+ */
+const naoENumero = (valor: any): boolean =>
+  Number.isNaN(Number(valor));
+
+/**
+ * Verifica se um número é menor ou igual a zero.
+ */
+const naoPositivo = (valor: any): boolean =>
+  Number(valor) <= 0;
 
 export class ProdutoController {
   private readonly _service: ProdutoService;
@@ -10,12 +28,11 @@ export class ProdutoController {
 
   /**
    * GET /produtos
-   * Lista todos os produtos.
    */
   listarTodos = async (_req: Request, res: Response): Promise<void> => {
     try {
       const produtos = await this._service.listarTodos();
-      res.status(200).json(produtos);
+      res.status(200).json({ mensagem: "Produtos listados com sucesso.", produtos });
     } catch (error: any) {
       res.status(500).json({ mensagem: error.message });
     }
@@ -32,7 +49,7 @@ export class ProdutoController {
         return;
       }
       const produto = await this._service.buscarPorId(id);
-      res.status(200).json(produto);
+      res.status(200).json({ mensagem: "Produto encontrado com sucesso.", produto });
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }
@@ -49,7 +66,7 @@ export class ProdutoController {
         return;
       }
       const produtos = await this._service.listarPorCategoria(categoriaId);
-      res.status(200).json(produtos);
+      res.status(200).json({ mensagem: "Produtos listados com sucesso.", produtos });
     } catch (error: any) {
       res.status(500).json({ mensagem: error.message });
     }
@@ -57,29 +74,38 @@ export class ProdutoController {
 
   /**
    * POST /produtos
-   * Cria um produto. Espera multipart/form-data quando há imagem.
-   * Body: { nome, preco, categoriaId }
-   * File:  req.file (opcional, processado pelo Multer)
+   * Body: multipart/form-data { nome, preco, categoriaId, imagem? }
    */
   criar = async (req: Request, res: Response): Promise<void> => {
     try {
       const { nome, preco, categoriaId } = req.body;
 
-      if (!nome?.trim() || !preco || !categoriaId) {
-        res.status(400).json({ mensagem: "Campos 'nome', 'preco' e 'categoriaId' são obrigatórios." });
+      // --- validacao gigante credo ---
+      const erros: string[] = [];
+
+      if (ausente(nome))                        erros.push("Campo 'nome' é obrigatório.");
+      if (ausente(preco))                        erros.push("Campo 'preco' é obrigatório.");
+      else if (naoENumero(preco))               erros.push("Campo 'preco' deve ser um número válido.");
+      else if (naoPositivo(preco))              erros.push("Campo 'preco' deve ser maior que zero.");
+
+      if (ausente(categoriaId))                 erros.push("Campo 'categoriaId' é obrigatório.");
+      else if (naoENumero(categoriaId))         erros.push("Campo 'categoriaId' deve ser um número válido.");
+      else if (naoPositivo(categoriaId))        erros.push("Campo 'categoriaId' deve ser maior que zero.");
+
+      if (erros.length > 0) {
+        res.status(400).json({ mensagem: "Dados inválidos.", erros });
         return;
       }
 
-      // Caminho da imagem gerado pelo Multer (opcional)
       const vinculoImagem = req.file ? req.file.filename : null;
 
       const novoProduto = await this._service.criar(
-        nome,
+        nome.trim(),
         Number(preco),
         Number(categoriaId),
         vinculoImagem
       );
-      res.status(201).json(novoProduto);
+      res.status(201).json({ mensagem: "Produto criado com sucesso.", produto: novoProduto });
     } catch (error: any) {
       res.status(400).json({ mensagem: error.message });
     }
@@ -87,6 +113,7 @@ export class ProdutoController {
 
   /**
    * PUT /produtos/:id
+   * Body: multipart/form-data { nome, preco, categoriaId, imagem? }
    */
   editar = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -97,8 +124,20 @@ export class ProdutoController {
       }
 
       const { nome, preco, categoriaId } = req.body;
-      if (!nome?.trim() || !preco || !categoriaId) {
-        res.status(400).json({ mensagem: "Campos 'nome', 'preco' e 'categoriaId' são obrigatórios." });
+
+      const erros: string[] = [];
+
+      if (ausente(nome))                        erros.push("Campo 'nome' é obrigatório.");
+      if (ausente(preco))                        erros.push("Campo 'preco' é obrigatório.");
+      else if (naoENumero(preco))               erros.push("Campo 'preco' deve ser um número válido.");
+      else if (naoPositivo(preco))              erros.push("Campo 'preco' deve ser maior que zero.");
+
+      if (ausente(categoriaId))                 erros.push("Campo 'categoriaId' é obrigatório.");
+      else if (naoENumero(categoriaId))         erros.push("Campo 'categoriaId' deve ser um número válido.");
+      else if (naoPositivo(categoriaId))        erros.push("Campo 'categoriaId' deve ser maior que zero.");
+
+      if (erros.length > 0) {
+        res.status(400).json({ mensagem: "Dados inválidos.", erros });
         return;
       }
 
@@ -106,12 +145,12 @@ export class ProdutoController {
 
       const produtoAtualizado = await this._service.editar(
         id,
-        nome,
+        nome.trim(),
         Number(preco),
         Number(categoriaId),
         vinculoImagem
       );
-      res.status(200).json(produtoAtualizado);
+      res.status(200).json({ mensagem: "Produto atualizado com sucesso.", produto: produtoAtualizado });
     } catch (error: any) {
       res.status(400).json({ mensagem: error.message });
     }
@@ -130,7 +169,7 @@ export class ProdutoController {
       await this._service.deletar(id);
       res.status(200)
         .setHeader("X-Message", "Produto removido com sucesso.")
-        .json({ message: "Delete efetuado com sucesso." });
+        .json({ mensagem: "Produto removido com sucesso." });
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }

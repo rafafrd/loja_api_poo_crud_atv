@@ -1,18 +1,20 @@
-import { Pedido }            from "../models/pedido.model";
-import { ItemPedido }        from "../models/itemPedido.model";
-import { PedidoRepository }  from "../repository/pedido.repository";
+import { Pedido }           from "../models/pedido.model";
+import { ItemPedido }       from "../models/itemPedido.model";
+import { PedidoRepository } from "../repository/pedido.repository";
+import { ProdutoService }   from "./produto.service";
 
 export interface IItemInput {
-  produtoId:     number;
-  quantidade:    number;
-  precoUnitario: number;
+  produtoId:  number;
+  quantidade: number;
 }
 
 export class PedidoService {
-  private readonly _repository: PedidoRepository;
+  private readonly _repository:     PedidoRepository;
+  private readonly _produtoService: ProdutoService;
 
   constructor() {
-    this._repository = new PedidoRepository();
+    this._repository     = new PedidoRepository();
+    this._produtoService = new ProdutoService();
   }
 
   /** Retorna todos os pedidos com itens embutidos. */
@@ -31,33 +33,36 @@ export class PedidoService {
   }
 
   /**
-   * Cria um Pedido completo com seus itens.
+   * Cria um Pedido completo buscando o preço de cada produto no banco.
    * O valor_final é calculado automaticamente pelo objeto Pedido.
    *
    * @param clienteId  FK do cliente
    * @param vendedorId FK do vendedor
-   * @param itensInput Array de itens vindos do body da requisição
+   * @param itensInput Array de { produtoId, quantidade }
+   * @throws Error se qualquer produtoId não existir no banco
    */
   async criar(
     clienteId:  number,
     vendedorId: number,
     itensInput: IItemInput[]
   ): Promise<Pedido> {
-    if (!itensInput || itensInput.length === 0) {
-      throw new Error("O pedido deve conter pelo menos um item.");
-    }
 
-    // Factory de cada ItemPedido — objetos já nascem validados
-    const itens: ItemPedido[] = itensInput.map((i) =>
-      ItemPedido.criar(i.produtoId, i.quantidade, i.precoUnitario)
+    // Busca o preço atual de cada produto no banco em paralelo.
+    // Se algum produtoId não existir, ProdutoService já lança erro descritivo.
+    const itens: ItemPedido[] = await Promise.all(
+      itensInput.map(async (i) => {
+        const produto = await this._produtoService.buscarPorId(i.produtoId);
+        // precoUnitario = preço atual do produto — preserva histórico no item
+        return ItemPedido.criar(i.produtoId, i.quantidade, produto.Preco);
+      })
     );
 
-    // Factory do Pedido — calcularTotal() chamado no construtor
+    // Factory do Pedido — calcularTotal() chamado automaticamente no construtor
     const novoPedido = Pedido.criar(clienteId, vendedorId, itens);
 
     const resultado = await this._repository.create(novoPedido);
 
-    // Retorna o pedido completo buscando do banco (com IDs gerados)
+    // Retorna o pedido completo com IDs gerados pelo banco
     return await this.buscarPorId(resultado.insertId);
   }
 
@@ -66,7 +71,7 @@ export class PedidoService {
    * @param id ID do pedido
    */
   async deletar(id: number): Promise<void> {
-    await this.buscarPorId(id); // garante que existe
+    await this.buscarPorId(id);
     await this._repository.delete(id);
   }
 }
