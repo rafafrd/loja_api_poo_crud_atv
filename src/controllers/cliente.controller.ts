@@ -26,7 +26,7 @@ export class ClienteController {
   buscarPorId = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
+      if (Number.isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       const cliente = await this._service.buscarPorId(id);
       res.status(200).json({ mensagem: "Cliente encontrado com sucesso.", cliente });
@@ -60,7 +60,7 @@ export class ClienteController {
   editar = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
+      if (Number.isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       const { nome, email } = req.body;
       if (!nome?.trim() || !email?.trim()) {
@@ -80,7 +80,7 @@ export class ClienteController {
   deletar = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
+      if (Number.isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       await this._service.deletar(id);
       res.status(204).setHeader("X-Message", "Cliente removido com sucesso.").send();

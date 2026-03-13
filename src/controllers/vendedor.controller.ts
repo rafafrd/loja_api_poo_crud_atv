@@ -26,7 +26,7 @@ export class VendedorController {
   buscarPorId = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
+      if (Number.isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       const vendedor = await this._service.buscarPorId(id);
       res.status(200).json(vendedor);
@@ -60,7 +60,7 @@ export class VendedorController {
   editar = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
+      if (Number.isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       const { nome } = req.body;
       if (!nome?.trim()) {
@@ -80,10 +80,10 @@ export class VendedorController {
   deletar = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
+      if (Number.isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       await this._service.deletar(id);
-      res.status(204).setHeader("X-Message", "Pedido removido com sucesso.").send();
+      res.status(204).setHeader("X-Message", "Vendedor removido com sucesso.").send();
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }

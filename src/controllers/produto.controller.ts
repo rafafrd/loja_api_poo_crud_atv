@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { ProdutoService } from "../services/produto.service";
 
-// TODO: upload.middleware.ts deve ser aplicado na rota antes deste controller
 export class ProdutoController {
   private readonly _service: ProdutoService;
 
@@ -28,7 +27,7 @@ export class ProdutoController {
   buscarPorId = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) {
+      if (Number.isNaN(id)) {
         res.status(400).json({ mensagem: "ID inválido." });
         return;
       }
@@ -45,7 +44,7 @@ export class ProdutoController {
   listarPorCategoria = async (req: Request, res: Response): Promise<void> => {
     try {
       const categoriaId = Number(req.params.categoriaId);
-      if (isNaN(categoriaId)) {
+      if (Number.isNaN(categoriaId)) {
         res.status(400).json({ mensagem: "ID de categoria inválido." });
         return;
       }
@@ -92,7 +91,7 @@ export class ProdutoController {
   editar = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) {
+      if (Number.isNaN(id)) {
         res.status(400).json({ mensagem: "ID inválido." });
         return;
       }
@@ -124,12 +123,12 @@ export class ProdutoController {
   deletar = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) {
+      if (Number.isNaN(id)) {
         res.status(400).json({ mensagem: "ID inválido." });
         return;
       }
       await this._service.deletar(id);
-      res.status(204).setHeader("X-Message", "Pedido removido com sucesso.").send();
+      res.status(204).setHeader("X-Message", "Produto removido com sucesso.").send();
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }

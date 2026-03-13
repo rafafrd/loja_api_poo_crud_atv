@@ -8,27 +8,6 @@ export class CategoriaController {
     this._service = new CategoriaService();
   }
 
-  private tratarErro(error: any, res: Response): void {
-    const mensagemErro = String(error?.message || "").toLowerCase();
-
-    if (mensagemErro.includes("não encontrado") || mensagemErro.includes("nao encontrado")) {
-      res.status(404).json({ mensagem: "Categoria não encontrada." });
-      return;
-    }
-
-    if (
-      mensagemErro.includes("inválido") ||
-      mensagemErro.includes("invalido") ||
-      mensagemErro.includes("obrigatório") ||
-      mensagemErro.includes("obrigatorio")
-    ) {
-      res.status(400).json({ mensagem: "Dados inválidos. Revise os campos e tente novamente." });
-      return;
-    }
-
-    res.status(500).json({ mensagem: "Não foi possível processar sua solicitação agora. Tente novamente mais tarde." });
-  }
-
   /**
    * GET /categorias
    * Lista todas as categorias.
@@ -38,7 +17,7 @@ export class CategoriaController {
       const categorias = await this._service.listarTodos();
       res.status(200).json({ mensagem: "Categorias listadas com sucesso.", categorias });
     } catch (error: any) {
-      this.tratarErro(error, res);
+      res.status(500).json({ mensagem: error.message });
     }
   };
 
@@ -49,14 +28,14 @@ export class CategoriaController {
   buscarPorId = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) {
+      if (Number.isNaN(id)) {
         res.status(400).json({ mensagem: "ID inválido." });
         return;
       }
       const categoria = await this._service.buscarPorId(id);
       res.status(200).json({ mensagem: "Categoria encontrada com sucesso.", categoria });
     } catch (error: any) {
-      this.tratarErro(error, res);
+      res.status(404).json({ mensagem: error.message });
     }
   };
 
@@ -75,7 +54,7 @@ export class CategoriaController {
       const novaCategoria = await this._service.criar(nome);
       res.status(201).json({ mensagem: "Categoria criada com sucesso.", categoria: novaCategoria });
     } catch (error: any) {
-      this.tratarErro(error, res);
+      res.status(400).json({ mensagem: error.message });
     }
   };
 
@@ -87,7 +66,7 @@ export class CategoriaController {
   editar = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) {
+      if (Number.isNaN(id)) {
         res.status(400).json({ mensagem: "ID inválido." });
         return;
       }
@@ -99,7 +78,7 @@ export class CategoriaController {
       const categoriaAtualizada = await this._service.editar(id, nome);
       res.status(200).json({ mensagem: "Categoria atualizada com sucesso.", categoria: categoriaAtualizada });
     } catch (error: any) {
-      this.tratarErro(error, res);
+      res.status(400).json({ mensagem: error.message });
     }
   };
 
@@ -110,14 +89,14 @@ export class CategoriaController {
   deletar = async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      if (isNaN(id)) {
+      if (Number.isNaN(id)) {
         res.status(400).json({ mensagem: "ID inválido." });
         return;
       }
       await this._service.deletar(id);
       res.status(204).setHeader("X-Message", "Categoria removida com sucesso.").send();
     } catch (error: any) {
-      this.tratarErro(error, res);
+      res.status(404).json({ mensagem: error.message });
     }
   };
 }
