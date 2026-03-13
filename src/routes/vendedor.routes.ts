@@ -11,6 +11,9 @@ vendedorRoutes.get("/:id", vendedorController.buscarPorId);
 // post
 vendedorRoutes.post("/", vendedorController.criar);
 
+// put
+vendedorRoutes.put("/:id", vendedorController.editar);
+
 // delete
 vendedorRoutes.delete("/:id", vendedorController.deletar);
 
