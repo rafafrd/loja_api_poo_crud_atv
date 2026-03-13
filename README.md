@@ -698,7 +698,7 @@ O projeto foi analisado e aprovado pelo **SonarQube** sem nenhuma issue crítica
 ![Bugs](https://img.shields.io/badge/Bugs-0-brightgreen?style=for-the-badge&logo=sonarqube&logoColor=white)
 ![Code Smells](https://img.shields.io/badge/Code%20Smells-0-brightgreen?style=for-the-badge&logo=sonarqube&logoColor=white)
 ![Vulnerabilities](https://img.shields.io/badge/Vulnerabilities-0-brightgreen?style=for-the-badge&logo=sonarqube&logoColor=white)
-![Duplications](https://img.shields.io/badge/Duplicações-0%25-brightgreen?style=for-the-badge&logo=sonarqube&logoColor=white)
+![Duplications](https://img.shields.io/badge/Duplicações-5%25-brightgreen?style=for-the-badge&logo=sonarqube&logoColor=white)
 
 </div>
 
