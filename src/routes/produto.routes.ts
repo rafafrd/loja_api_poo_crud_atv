@@ -1,18 +1,22 @@
 import { Router } from "express";
-import { ClienteController }  from "../controllers/cliente.controller";
+import { ProdutoController }  from "../controllers/produto.controller";
+import uploadImage from "../middleware/upload.middleware";
 
-const clienteRoutes = Router();
-const clienteController = new ClienteController();
+
+const produtoRoutes = Router();
+const produtoController = new ProdutoController();
 
 // get
-clienteRoutes.get("/", clienteController.listarTodos);
-clienteRoutes.get("/:id", clienteController.buscarPorId);
+produtoRoutes.get("/", produtoController.listarTodos);
+produtoRoutes.get("/:id", produtoController.buscarPorId);
 
 // post
-clienteRoutes.post("/", clienteController.criar);
-// put
-clienteRoutes.put("/:id", clienteController.editar);
-// delete
-clienteRoutes.delete("/:id", clienteController.deletar);
+produtoRoutes.post("/", uploadImage, produtoController.criar);
 
-export default clienteRoutes;
+// put
+produtoRoutes.put("/:id", produtoController.editar);
+
+// delete
+produtoRoutes.delete("/:id", produtoController.deletar);
+
+export default produtoRoutes;

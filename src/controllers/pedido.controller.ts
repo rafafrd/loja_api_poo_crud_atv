@@ -15,7 +15,7 @@ export class PedidoController {
   listarTodos = async (_req: Request, res: Response): Promise<void> => {
     try {
       const pedidos = await this._service.listarTodos();
-      res.status(200).json(pedidos);
+      res.status(200).json({ mensagem: "Pedidos listados com sucesso.", pedidos });
     } catch (error: any) {
       res.status(500).json({ mensagem: error.message });
     }
@@ -31,7 +31,7 @@ export class PedidoController {
       if (isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       const pedido = await this._service.buscarPorId(id);
-      res.status(200).json(pedido);
+      res.status(200).json({ mensagem: "Pedido encontrado com sucesso.", pedido });
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }
@@ -71,7 +71,7 @@ export class PedidoController {
         itens
       );
 
-      res.status(201).json(novoPedido);
+      res.status(201).json({ mensagem: "Pedido criado com sucesso.", pedido: novoPedido });
     } catch (error: any) {
       res.status(400).json({ mensagem: error.message });
     }
@@ -87,7 +87,7 @@ export class PedidoController {
       if (isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       await this._service.deletar(id);
-      res.status(204).send();
+      res.status(204).setHeader("X-Message", "Pedido removido com sucesso.").send();
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }

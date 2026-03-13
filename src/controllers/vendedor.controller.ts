@@ -83,7 +83,7 @@ export class VendedorController {
       if (isNaN(id)) { res.status(400).json({ mensagem: "ID inválido." }); return; }
 
       await this._service.deletar(id);
-      res.status(204).send();
+      res.status(204).setHeader("X-Message", "Pedido removido com sucesso.").send();
     } catch (error: any) {
       res.status(404).json({ mensagem: error.message });
     }
