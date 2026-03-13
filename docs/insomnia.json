@@ -39,11 +39,37 @@
       "name": "POST — Criar",
       "method": "POST",
       "url": "http://localhost:8000/categorias",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
       "body": {
         "mimeType": "application/json",
         "text": "{\n  \"nome\": \"Eletrônicos\"\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_cat_03b",
+      "parentId": "fld_categorias",
+      "name": "POST — Criar (ERRO - nome vazio)",
+      "method": "POST",
+      "url": "http://localhost:8000/categorias",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"\"\n}"
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_cat_03c",
+      "parentId": "fld_categorias",
+      "name": "POST — Criar (ERRO - nome curto)",
+      "method": "POST",
+      "url": "http://localhost:8000/categorias",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"AB\"\n}"
+      }
     },
     {
       "_type": "request",
@@ -52,11 +78,24 @@
       "name": "PUT — Editar",
       "method": "PUT",
       "url": "http://localhost:8000/categorias/1",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
       "body": {
         "mimeType": "application/json",
         "text": "{\n  \"nome\": \"Eletrônicos e Gadgets\"\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_cat_04b",
+      "parentId": "fld_categorias",
+      "name": "PUT — Editar (ERRO - ID inexistente)",
+      "method": "PUT",
+      "url": "http://localhost:8000/categorias/9999",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Categoria Fantasma\"\n}"
+      }
     },
     {
       "_type": "request",
@@ -65,6 +104,15 @@
       "name": "DELETE — Remover",
       "method": "DELETE",
       "url": "http://localhost:8000/categorias/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_cat_05b",
+      "parentId": "fld_categorias",
+      "name": "DELETE — Remover (ERRO - ID inexistente)",
+      "method": "DELETE",
+      "url": "http://localhost:8000/categorias/9999",
       "body": {}
     },
 
@@ -94,6 +142,24 @@
     },
     {
       "_type": "request",
+      "_id": "req_pro_02b",
+      "parentId": "fld_produtos",
+      "name": "GET — Buscar por ID (ERRO - ID inexistente)",
+      "method": "GET",
+      "url": "http://localhost:8000/produtos/9999",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_02c",
+      "parentId": "fld_produtos",
+      "name": "GET — Listar por Categoria",
+      "method": "GET",
+      "url": "http://localhost:8000/produtos/categoria/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
       "_id": "req_pro_03",
       "parentId": "fld_produtos",
       "name": "POST — Criar (com imagem)",
@@ -106,6 +172,70 @@
           { "name": "preco",       "value": "4999.90" },
           { "name": "categoriaId", "value": "1" },
           { "name": "imagem",      "fileName": "", "type": "file" }
+        ]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_03b",
+      "parentId": "fld_produtos",
+      "name": "POST — Criar (sem imagem)",
+      "method": "POST",
+      "url": "http://localhost:8000/produtos",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          { "name": "nome",        "value": "Mouse Sem Fio" },
+          { "name": "preco",       "value": "149.90" },
+          { "name": "categoriaId", "value": "1" }
+        ]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_03c",
+      "parentId": "fld_produtos",
+      "name": "POST — Criar (ERRO - preco com letra)",
+      "method": "POST",
+      "url": "http://localhost:8000/produtos",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          { "name": "nome",        "value": "Produto Inválido" },
+          { "name": "preco",       "value": "abc" },
+          { "name": "categoriaId", "value": "1" }
+        ]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_03d",
+      "parentId": "fld_produtos",
+      "name": "POST — Criar (ERRO - preco negativo)",
+      "method": "POST",
+      "url": "http://localhost:8000/produtos",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          { "name": "nome",        "value": "Produto Negativo" },
+          { "name": "preco",       "value": "-10" },
+          { "name": "categoriaId", "value": "1" }
+        ]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_03e",
+      "parentId": "fld_produtos",
+      "name": "POST — Criar (ERRO - múltiplos erros)",
+      "method": "POST",
+      "url": "http://localhost:8000/produtos",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          { "name": "nome",        "value": "" },
+          { "name": "preco",       "value": "xyz" },
+          { "name": "categoriaId", "value": "-5" }
         ]
       }
     },
@@ -128,11 +258,36 @@
     },
     {
       "_type": "request",
+      "_id": "req_pro_04b",
+      "parentId": "fld_produtos",
+      "name": "PUT — Editar (ERRO - categoriaId com letra)",
+      "method": "PUT",
+      "url": "http://localhost:8000/produtos/1",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          { "name": "nome",        "value": "Notebook Gamer" },
+          { "name": "preco",       "value": "4999.90" },
+          { "name": "categoriaId", "value": "abc" }
+        ]
+      }
+    },
+    {
+      "_type": "request",
       "_id": "req_pro_05",
       "parentId": "fld_produtos",
       "name": "DELETE — Remover",
       "method": "DELETE",
       "url": "http://localhost:8000/produtos/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_05b",
+      "parentId": "fld_produtos",
+      "name": "DELETE — Remover (ERRO - ID inexistente)",
+      "method": "DELETE",
+      "url": "http://localhost:8000/produtos/9999",
       "body": {}
     },
 
@@ -162,16 +317,51 @@
     },
     {
       "_type": "request",
+      "_id": "req_cli_02b",
+      "parentId": "fld_clientes",
+      "name": "GET — Buscar por ID (ERRO - ID inexistente)",
+      "method": "GET",
+      "url": "http://localhost:8000/clientes/9999",
+      "body": {}
+    },
+    {
+      "_type": "request",
       "_id": "req_cli_03",
       "parentId": "fld_clientes",
       "name": "POST — Criar",
       "method": "POST",
       "url": "http://localhost:8000/clientes",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
       "body": {
         "mimeType": "application/json",
         "text": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"joao.silva@email.com\"\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_cli_03b",
+      "parentId": "fld_clientes",
+      "name": "POST — Criar (ERRO - email inválido)",
+      "method": "POST",
+      "url": "http://localhost:8000/clientes",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"emailsemarroba.com\"\n}"
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_cli_03c",
+      "parentId": "fld_clientes",
+      "name": "POST — Criar (ERRO - nome e email vazios)",
+      "method": "POST",
+      "url": "http://localhost:8000/clientes",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"\",\n  \"email\": \"\"\n}"
+      }
     },
     {
       "_type": "request",
@@ -180,11 +370,24 @@
       "name": "PUT — Editar",
       "method": "PUT",
       "url": "http://localhost:8000/clientes/1",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
       "body": {
         "mimeType": "application/json",
         "text": "{\n  \"nome\": \"João Silva Santos\",\n  \"email\": \"joao.santos@email.com\"\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_cli_04b",
+      "parentId": "fld_clientes",
+      "name": "PUT — Editar (ERRO - ID inexistente)",
+      "method": "PUT",
+      "url": "http://localhost:8000/clientes/9999",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Fantasma\",\n  \"email\": \"fantasma@email.com\"\n}"
+      }
     },
     {
       "_type": "request",
@@ -193,6 +396,15 @@
       "name": "DELETE — Remover",
       "method": "DELETE",
       "url": "http://localhost:8000/clientes/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_cli_05b",
+      "parentId": "fld_clientes",
+      "name": "DELETE — Remover (ERRO - ID inexistente)",
+      "method": "DELETE",
+      "url": "http://localhost:8000/clientes/9999",
       "body": {}
     },
 
@@ -222,16 +434,51 @@
     },
     {
       "_type": "request",
+      "_id": "req_ven_02b",
+      "parentId": "fld_vendedores",
+      "name": "GET — Buscar por ID (ERRO - ID inexistente)",
+      "method": "GET",
+      "url": "http://localhost:8000/vendedores/9999",
+      "body": {}
+    },
+    {
+      "_type": "request",
       "_id": "req_ven_03",
       "parentId": "fld_vendedores",
       "name": "POST — Criar",
       "method": "POST",
       "url": "http://localhost:8000/vendedores",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
       "body": {
         "mimeType": "application/json",
         "text": "{\n  \"nome\": \"Maria Oliveira\"\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_ven_03b",
+      "parentId": "fld_vendedores",
+      "name": "POST — Criar (ERRO - nome vazio)",
+      "method": "POST",
+      "url": "http://localhost:8000/vendedores",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"\"\n}"
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_ven_03c",
+      "parentId": "fld_vendedores",
+      "name": "POST — Criar (ERRO - nome curto)",
+      "method": "POST",
+      "url": "http://localhost:8000/vendedores",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"AB\"\n}"
+      }
     },
     {
       "_type": "request",
@@ -240,11 +487,24 @@
       "name": "PUT — Editar",
       "method": "PUT",
       "url": "http://localhost:8000/vendedores/1",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
       "body": {
         "mimeType": "application/json",
         "text": "{\n  \"nome\": \"Maria Oliveira Costa\"\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_ven_04b",
+      "parentId": "fld_vendedores",
+      "name": "PUT — Editar (ERRO - ID inexistente)",
+      "method": "PUT",
+      "url": "http://localhost:8000/vendedores/9999",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Vendedor Fantasma\"\n}"
+      }
     },
     {
       "_type": "request",
@@ -255,7 +515,16 @@
       "url": "http://localhost:8000/vendedores/1",
       "body": {}
     },
-  
+    {
+      "_type": "request",
+      "_id": "req_ven_05b",
+      "parentId": "fld_vendedores",
+      "name": "DELETE — Remover (ERRO - ID inexistente)",
+      "method": "DELETE",
+      "url": "http://localhost:8000/vendedores/9999",
+      "body": {}
+    },
+
     {
       "_type": "request_group",
       "_id": "fld_pedidos",
@@ -282,16 +551,90 @@
     },
     {
       "_type": "request",
+      "_id": "req_ped_02b",
+      "parentId": "fld_pedidos",
+      "name": "GET — Buscar por ID (ERRO - ID inexistente)",
+      "method": "GET",
+      "url": "http://localhost:8000/pedidos/9999",
+      "body": {}
+    },
+    {
+      "_type": "request",
       "_id": "req_ped_03",
       "parentId": "fld_pedidos",
-      "name": "POST — Criar (com itens)",
+      "name": "POST — Criar (1 item)",
       "method": "POST",
       "url": "http://localhost:8000/pedidos",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"clienteId\": 1,\n  \"vendedorId\": 1,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 2,\n      \"precoUnitario\": 4999.90\n    },\n    {\n      \"produtoId\": 2,\n      \"quantidade\": 1,\n      \"precoUnitario\": 19.90\n    }\n  ]\n}"
-      },
-      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+        "text": "{\n  \"clienteId\": 1,\n  \"vendedorId\": 1,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 1\n    }\n  ]\n}"
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_03b",
+      "parentId": "fld_pedidos",
+      "name": "POST — Criar (múltiplos itens)",
+      "method": "POST",
+      "url": "http://localhost:8000/pedidos",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"clienteId\": 1,\n  \"vendedorId\": 1,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 2\n    },\n    {\n      \"produtoId\": 2,\n      \"quantidade\": 1\n    }\n  ]\n}"
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_03c",
+      "parentId": "fld_pedidos",
+      "name": "POST — Criar (ERRO - itens vazio)",
+      "method": "POST",
+      "url": "http://localhost:8000/pedidos",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"clienteId\": 1,\n  \"vendedorId\": 1,\n  \"itens\": []\n}"
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_03d",
+      "parentId": "fld_pedidos",
+      "name": "POST — Criar (ERRO - clienteId e vendedorId inválidos)",
+      "method": "POST",
+      "url": "http://localhost:8000/pedidos",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"clienteId\": \"abc\",\n  \"vendedorId\": -1,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 1\n    }\n  ]\n}"
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_03e",
+      "parentId": "fld_pedidos",
+      "name": "POST — Criar (ERRO - item com quantidade inválida)",
+      "method": "POST",
+      "url": "http://localhost:8000/pedidos",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"clienteId\": 1,\n  \"vendedorId\": 1,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": \"abc\"\n    },\n    {\n      \"produtoId\": 2,\n      \"quantidade\": 0\n    }\n  ]\n}"
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_03f",
+      "parentId": "fld_pedidos",
+      "name": "POST — Criar (ERRO - produtoId inexistente no banco)",
+      "method": "POST",
+      "url": "http://localhost:8000/pedidos",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"clienteId\": 1,\n  \"vendedorId\": 1,\n  \"itens\": [\n    {\n      \"produtoId\": 9999,\n      \"quantidade\": 1\n    }\n  ]\n}"
+      }
     },
     {
       "_type": "request",
@@ -300,6 +643,15 @@
       "name": "DELETE — Remover",
       "method": "DELETE",
       "url": "http://localhost:8000/pedidos/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_05b",
+      "parentId": "fld_pedidos",
+      "name": "DELETE — Remover (ERRO - ID inexistente)",
+      "method": "DELETE",
+      "url": "http://localhost:8000/pedidos/9999",
       "body": {}
     }
   ]

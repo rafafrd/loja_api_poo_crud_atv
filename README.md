@@ -191,13 +191,13 @@ flowchart TD
 
 ### Responsabilidades por Camada
 
-| Camada | Arquivo(s) | Responsabilidade |
-|---|---|---|
-| **Route** | `*.routes.ts` | Mapear verbos HTTP para métodos do Controller |
-| **Controller** | `*.controller.ts` | Receber requisições HTTP, validar entrada, retornar respostas |
-| **Service** | `*.service.ts` | Orquestrar regras de negócio, instanciar objetos via Factory Method |
-| **Repository** | `*.repository.ts` | Executar queries SQL com parâmetros seguros contra SQL Injection |
-| **Model** | `*.model.ts` | Representar entidades com validações internas e encapsulamento |
+| Camada         | Arquivo(s)        | Responsabilidade                                                    |
+| -------------- | ----------------- | ------------------------------------------------------------------- |
+| **Route**      | `*.routes.ts`     | Mapear verbos HTTP para métodos do Controller                       |
+| **Controller** | `*.controller.ts` | Receber requisições HTTP, validar entrada, retornar respostas       |
+| **Service**    | `*.service.ts`    | Orquestrar regras de negócio, instanciar objetos via Factory Method |
+| **Repository** | `*.repository.ts` | Executar queries SQL com parâmetros seguros contra SQL Injection    |
+| **Model**      | `*.model.ts`      | Representar entidades com validações internas e encapsulamento      |
 
 ---
 
@@ -356,13 +356,13 @@ erDiagram
 
 ### Relacionamentos
 
-| Relacionamento | Cardinalidade | Descrição |
-|---|---|---|
-| Categoria → Produto | 1:N | Uma categoria possui vários produtos |
-| Cliente → Pedido | 1:N | Um cliente pode realizar vários pedidos |
-| Vendedor → Pedido | 1:N | Um vendedor pode atender vários pedidos |
-| Pedido → ItensPedido | 1:N | Um pedido contém vários itens |
-| Produto → ItensPedido | 1:N | Um produto pode aparecer em vários itens |
+| Relacionamento        | Cardinalidade | Descrição                                |
+| --------------------- | ------------- | ---------------------------------------- |
+| Categoria → Produto   | 1:N           | Uma categoria possui vários produtos     |
+| Cliente → Pedido      | 1:N           | Um cliente pode realizar vários pedidos  |
+| Vendedor → Pedido     | 1:N           | Um vendedor pode atender vários pedidos  |
+| Pedido → ItensPedido  | 1:N           | Um pedido contém vários itens            |
+| Produto → ItensPedido | 1:N           | Um produto pode aparecer em vários itens |
 
 ---
 
@@ -444,53 +444,53 @@ flowchart LR
 
 ### 📦 Categorias — `/categorias`
 
-| Método | Rota | Descrição |
-|---|---|---|
-| `GET` | `/categorias` | Lista todas as categorias |
-| `GET` | `/categorias/:id` | Busca categoria por ID |
-| `POST` | `/categorias` | Cria uma nova categoria |
-| `PUT` | `/categorias/:id` | Atualiza uma categoria |
-| `DELETE` | `/categorias/:id` | Remove uma categoria |
+| Método   | Rota              | Descrição                 |
+| -------- | ----------------- | ------------------------- |
+| `GET`    | `/categorias`     | Lista todas as categorias |
+| `GET`    | `/categorias/:id` | Busca categoria por ID    |
+| `POST`   | `/categorias`     | Cria uma nova categoria   |
+| `PUT`    | `/categorias/:id` | Atualiza uma categoria    |
+| `DELETE` | `/categorias/:id` | Remove uma categoria      |
 
 ### 🏷️ Produtos — `/produtos`
 
-| Método | Rota | Descrição |
-|---|---|---|
-| `GET` | `/produtos` | Lista todos os produtos |
-| `GET` | `/produtos/:id` | Busca produto por ID |
-| `GET` | `/produtos/categoria/:categoriaId` | Lista produtos por categoria |
-| `POST` | `/produtos` | Cria produto (`multipart/form-data`) |
-| `PUT` | `/produtos/:id` | Atualiza produto (`multipart/form-data`) |
-| `DELETE` | `/produtos/:id` | Remove um produto |
+| Método   | Rota                               | Descrição                                |
+| -------- | ---------------------------------- | ---------------------------------------- |
+| `GET`    | `/produtos`                        | Lista todos os produtos                  |
+| `GET`    | `/produtos/:id`                    | Busca produto por ID                     |
+| `GET`    | `/produtos/categoria/:categoriaId` | Lista produtos por categoria             |
+| `POST`   | `/produtos`                        | Cria produto (`multipart/form-data`)     |
+| `PUT`    | `/produtos/:id`                    | Atualiza produto (`multipart/form-data`) |
+| `DELETE` | `/produtos/:id`                    | Remove um produto                        |
 
 ### 👤 Clientes — `/clientes`
 
-| Método | Rota | Descrição |
-|---|---|---|
-| `GET` | `/clientes` | Lista todos os clientes |
-| `GET` | `/clientes/:id` | Busca cliente por ID |
-| `POST` | `/clientes` | Cria um novo cliente |
-| `PUT` | `/clientes/:id` | Atualiza um cliente |
-| `DELETE` | `/clientes/:id` | Remove um cliente |
+| Método   | Rota            | Descrição               |
+| -------- | --------------- | ----------------------- |
+| `GET`    | `/clientes`     | Lista todos os clientes |
+| `GET`    | `/clientes/:id` | Busca cliente por ID    |
+| `POST`   | `/clientes`     | Cria um novo cliente    |
+| `PUT`    | `/clientes/:id` | Atualiza um cliente     |
+| `DELETE` | `/clientes/:id` | Remove um cliente       |
 
 ### 🧑‍💼 Vendedores — `/vendedores`
 
-| Método | Rota | Descrição |
-|---|---|---|
-| `GET` | `/vendedores` | Lista todos os vendedores |
-| `GET` | `/vendedores/:id` | Busca vendedor por ID |
-| `POST` | `/vendedores` | Cria um novo vendedor |
-| `PUT` | `/vendedores/:id` | Atualiza um vendedor |
-| `DELETE` | `/vendedores/:id` | Remove um vendedor |
+| Método   | Rota              | Descrição                 |
+| -------- | ----------------- | ------------------------- |
+| `GET`    | `/vendedores`     | Lista todos os vendedores |
+| `GET`    | `/vendedores/:id` | Busca vendedor por ID     |
+| `POST`   | `/vendedores`     | Cria um novo vendedor     |
+| `PUT`    | `/vendedores/:id` | Atualiza um vendedor      |
+| `DELETE` | `/vendedores/:id` | Remove um vendedor        |
 
 ### 🧾 Pedidos — `/pedidos`
 
-| Método | Rota | Descrição |
-|---|---|---|
-| `GET` | `/pedidos` | Lista todos os pedidos com itens |
-| `GET` | `/pedidos/:id` | Busca pedido por ID com itens embutidos |
-| `POST` | `/pedidos` | Cria pedido + itens em transação única |
-| `DELETE` | `/pedidos/:id` | Remove pedido e seus itens |
+| Método   | Rota           | Descrição                               |
+| -------- | -------------- | --------------------------------------- |
+| `GET`    | `/pedidos`     | Lista todos os pedidos com itens        |
+| `GET`    | `/pedidos/:id` | Busca pedido por ID com itens embutidos |
+| `POST`   | `/pedidos`     | Cria pedido + itens em transação única  |
+| `DELETE` | `/pedidos/:id` | Remove pedido e seus itens              |
 
 ### Mapa de Rotas
 
@@ -575,15 +575,15 @@ flowchart TD
     V7 -->|Sim| OK4(["✅ Pedido válido\ncalcularTotal()"])
 ```
 
-| Entidade | Campo | Regra |
-|---|---|---|
-| `Pessoa` | `nome` | Mínimo 3 caracteres após trim |
-| `Cliente` | `email` | Formato válido: `usuario@dominio.ext` |
-| `Produto` | `nome` | Mínimo 3 caracteres |
-| `Produto` | `preco` | Maior que zero |
-| `ItemPedido` | `quantidade` | Inteiro maior ou igual a 1 |
-| `ItemPedido` | `precoUnitario` | Maior que zero |
-| `Pedido` | `itens` | Array com pelo menos 1 item |
+| Entidade     | Campo           | Regra                                 |
+| ------------ | --------------- | ------------------------------------- |
+| `Pessoa`     | `nome`          | Mínimo 3 caracteres após trim         |
+| `Cliente`    | `email`         | Formato válido: `usuario@dominio.ext` |
+| `Produto`    | `nome`          | Mínimo 3 caracteres                   |
+| `Produto`    | `preco`         | Maior que zero                        |
+| `ItemPedido` | `quantidade`    | Inteiro maior ou igual a 1            |
+| `ItemPedido` | `precoUnitario` | Maior que zero                        |
+| `Pedido`     | `itens`         | Array com pelo menos 1 item           |
 
 ---
 
@@ -631,13 +631,13 @@ mindmap
         exibirDetalhes por subclasse
 ```
 
-| Padrão | Onde é Aplicado | Benefício |
-|---|---|---|
-| **Factory Method** | Métodos estáticos `criar`, `fromDB`, `editar` em todas as entidades | Controla criação de objetos, centraliza validações, evita instâncias inválidas |
-| **Repository Pattern** | `*Repository` — um por entidade | Isola o SQL, torna o Service agnóstico ao banco, facilita manutenção |
-| **Singleton** | `db.connection.ts` — pool de conexão único | Evita múltiplas conexões abertas, otimiza uso de recursos |
-| **Layered Architecture** | Toda a estrutura do projeto | Separação clara de responsabilidades e manutenibilidade |
-| **Herança e Abstração** | `Pessoa (abstract)` → `Cliente`, `Vendedor` | Reutilização de código e validações compartilhadas |
+| Padrão                   | Onde é Aplicado                                                     | Benefício                                                                      |
+| ------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| **Factory Method**       | Métodos estáticos `criar`, `fromDB`, `editar` em todas as entidades | Controla criação de objetos, centraliza validações, evita instâncias inválidas |
+| **Repository Pattern**   | `*Repository` — um por entidade                                     | Isola o SQL, torna o Service agnóstico ao banco, facilita manutenção           |
+| **Singleton**            | `db.connection.ts` — pool de conexão único                          | Evita múltiplas conexões abertas, otimiza uso de recursos                      |
+| **Layered Architecture** | Toda a estrutura do projeto                                         | Separação clara de responsabilidades e manutenibilidade                        |
+| **Herança e Abstração**  | `Pessoa (abstract)` → `Cliente`, `Vendedor`                         | Reutilização de código e validações compartilhadas                             |
 
 ---
 
@@ -727,34 +727,11 @@ flowchart LR
 
 ---
 
-## 🚀 Como Executar
-
 ### Pré-requisitos
 
 - Node.js (LTS)
 - MySQL 8+
 - npm
-
-### Instalação
-
-```bash
-# 1. Clone o repositório
-git clone https://github.com/seu-usuario/sales-order-api.git
-cd sales-order-api
-
-# 2. Instale as dependências
-npm install
-
-# 3. Configure as variáveis de ambiente
-cp .env.example .env
-# Edite o arquivo .env com suas credenciais do MySQL
-
-# 4. Execute o schema no banco de dados
-mysql -u root -p < docs/db.sql
-
-# 5. Inicie o servidor em modo desenvolvimento
-npm run dev
-```
 
 ### Variáveis de Ambiente
 
@@ -785,5 +762,5 @@ flowchart LR
 ---
 
 <div align="center">
-  <sub>Projeto Acadêmico Backend — TypeScript · Express · MySQL2 · OOP · Design Patterns</sub>
+  <sub>Projeto Acadêmico Backend SENAI — TypeScript · Express · MySQL2 · OOP · Design Patterns</sub>
 </div>

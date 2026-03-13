@@ -7,7 +7,7 @@ export interface ICategoria extends RowDataPacket {
 export class Categoria {
   private readonly _id: number | null; // n muda
 
-  /** Nome da categoria — mutável via setter com validação */
+  /** Nome da categoria — muda por setter com validação */
   private _nome: string;
 
   /**
@@ -66,7 +66,7 @@ export class Categoria {
     return new Categoria(id, nome);
   }
 
-  // Validações Privadas (regras de negócio da entidade)
+  // Validações Privadas
 
   /**
    * Valida o nome da categoria.

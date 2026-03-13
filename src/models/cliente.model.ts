@@ -30,7 +30,7 @@ export class Cliente extends Pessoa {
 
   set Email(valor: string) { this._email = this.validarEmail(valor); }
 
-  // Implementação dos Métodos Abstratos (Polimorfismo)
+  // Polimorfismo
 
   /** Retorna o tipo desta entidade. */
   getTipo(): string {
