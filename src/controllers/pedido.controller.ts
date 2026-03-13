@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import { PedidoService }     from "../services/pedido.service";
 
-// ============================================================
-// Controller — Pedido
-// ============================================================
 export class PedidoController {
   private readonly _service: PedidoService;
 

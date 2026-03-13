@@ -3,10 +3,6 @@ import {db}                  from "../database/db.connection";
 import { Pedido, IPedido }         from "../models/pedido.model";
 import { ItemPedido, IItemPedido } from "../models/itemPedido.model";
 
-// ============================================================
-// Repository — Pedido
-// Gerencia Pedido e ItensPedidos em transação única
-// ============================================================
 export class PedidoRepository {
 
   /**
