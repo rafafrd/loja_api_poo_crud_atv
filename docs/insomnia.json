@@ -1,0 +1,306 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "resources": [
+    {
+      "_type": "workspace",
+      "_id": "wrk_001",
+      "name": "API — Projeto POO"
+    },
+
+    {
+      "_type": "request_group",
+      "_id": "fld_categorias",
+      "parentId": "wrk_001",
+      "name": "📁 Categorias"
+    },
+    {
+      "_type": "request",
+      "_id": "req_cat_01",
+      "parentId": "fld_categorias",
+      "name": "GET — Listar todas",
+      "method": "GET",
+      "url": "http://localhost:8000/categorias",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_cat_02",
+      "parentId": "fld_categorias",
+      "name": "GET — Buscar por ID",
+      "method": "GET",
+      "url": "http://localhost:8000/categorias/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_cat_03",
+      "parentId": "fld_categorias",
+      "name": "POST — Criar",
+      "method": "POST",
+      "url": "http://localhost:8000/categorias",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Eletrônicos\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+    },
+    {
+      "_type": "request",
+      "_id": "req_cat_04",
+      "parentId": "fld_categorias",
+      "name": "PUT — Editar",
+      "method": "PUT",
+      "url": "http://localhost:8000/categorias/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Eletrônicos e Gadgets\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+    },
+    {
+      "_type": "request",
+      "_id": "req_cat_05",
+      "parentId": "fld_categorias",
+      "name": "DELETE — Remover",
+      "method": "DELETE",
+      "url": "http://localhost:8000/categorias/1",
+      "body": {}
+    },
+
+    {
+      "_type": "request_group",
+      "_id": "fld_produtos",
+      "parentId": "wrk_001",
+      "name": "📁 Produtos"
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_01",
+      "parentId": "fld_produtos",
+      "name": "GET — Listar todos",
+      "method": "GET",
+      "url": "http://localhost:8000/produtos",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_02",
+      "parentId": "fld_produtos",
+      "name": "GET — Buscar por ID",
+      "method": "GET",
+      "url": "http://localhost:8000/produtos/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_03",
+      "parentId": "fld_produtos",
+      "name": "POST — Criar (com imagem)",
+      "method": "POST",
+      "url": "http://localhost:8000/produtos",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          { "name": "nome",        "value": "Notebook Gamer" },
+          { "name": "preco",       "value": "4999.90" },
+          { "name": "categoriaId", "value": "1" },
+          { "name": "imagem",      "fileName": "", "type": "file" }
+        ]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_04",
+      "parentId": "fld_produtos",
+      "name": "PUT — Editar (com imagem)",
+      "method": "PUT",
+      "url": "http://localhost:8000/produtos/1",
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          { "name": "nome",        "value": "Notebook Gamer Pro" },
+          { "name": "preco",       "value": "5499.90" },
+          { "name": "categoriaId", "value": "1" },
+          { "name": "imagem",      "fileName": "", "type": "file" }
+        ]
+      }
+    },
+    {
+      "_type": "request",
+      "_id": "req_pro_05",
+      "parentId": "fld_produtos",
+      "name": "DELETE — Remover",
+      "method": "DELETE",
+      "url": "http://localhost:8000/produtos/1",
+      "body": {}
+    },
+
+    {
+      "_type": "request_group",
+      "_id": "fld_clientes",
+      "parentId": "wrk_001",
+      "name": "📁 Clientes"
+    },
+    {
+      "_type": "request",
+      "_id": "req_cli_01",
+      "parentId": "fld_clientes",
+      "name": "GET — Listar todos",
+      "method": "GET",
+      "url": "http://localhost:8000/clientes",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_cli_02",
+      "parentId": "fld_clientes",
+      "name": "GET — Buscar por ID",
+      "method": "GET",
+      "url": "http://localhost:8000/clientes/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_cli_03",
+      "parentId": "fld_clientes",
+      "name": "POST — Criar",
+      "method": "POST",
+      "url": "http://localhost:8000/clientes",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"João Silva\",\n  \"email\": \"joao.silva@email.com\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+    },
+    {
+      "_type": "request",
+      "_id": "req_cli_04",
+      "parentId": "fld_clientes",
+      "name": "PUT — Editar",
+      "method": "PUT",
+      "url": "http://localhost:8000/clientes/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"João Silva Santos\",\n  \"email\": \"joao.santos@email.com\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+    },
+    {
+      "_type": "request",
+      "_id": "req_cli_05",
+      "parentId": "fld_clientes",
+      "name": "DELETE — Remover",
+      "method": "DELETE",
+      "url": "http://localhost:8000/clientes/1",
+      "body": {}
+    },
+
+    {
+      "_type": "request_group",
+      "_id": "fld_vendedores",
+      "parentId": "wrk_001",
+      "name": "📁 Vendedores"
+    },
+    {
+      "_type": "request",
+      "_id": "req_ven_01",
+      "parentId": "fld_vendedores",
+      "name": "GET — Listar todos",
+      "method": "GET",
+      "url": "http://localhost:8000/vendedores",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_ven_02",
+      "parentId": "fld_vendedores",
+      "name": "GET — Buscar por ID",
+      "method": "GET",
+      "url": "http://localhost:8000/vendedores/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_ven_03",
+      "parentId": "fld_vendedores",
+      "name": "POST — Criar",
+      "method": "POST",
+      "url": "http://localhost:8000/vendedores",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Maria Oliveira\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+    },
+    {
+      "_type": "request",
+      "_id": "req_ven_04",
+      "parentId": "fld_vendedores",
+      "name": "PUT — Editar",
+      "method": "PUT",
+      "url": "http://localhost:8000/vendedores/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Maria Oliveira Costa\"\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+    },
+    {
+      "_type": "request",
+      "_id": "req_ven_05",
+      "parentId": "fld_vendedores",
+      "name": "DELETE — Remover",
+      "method": "DELETE",
+      "url": "http://localhost:8000/vendedores/1",
+      "body": {}
+    },
+  
+    {
+      "_type": "request_group",
+      "_id": "fld_pedidos",
+      "parentId": "wrk_001",
+      "name": "📁 Pedidos"
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_01",
+      "parentId": "fld_pedidos",
+      "name": "GET — Listar todos",
+      "method": "GET",
+      "url": "http://localhost:8000/pedidos",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_02",
+      "parentId": "fld_pedidos",
+      "name": "GET — Buscar por ID (com itens)",
+      "method": "GET",
+      "url": "http://localhost:8000/pedidos/1",
+      "body": {}
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_03",
+      "parentId": "fld_pedidos",
+      "name": "POST — Criar (com itens)",
+      "method": "POST",
+      "url": "http://localhost:8000/pedidos",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"clienteId\": 1,\n  \"vendedorId\": 1,\n  \"itens\": [\n    {\n      \"produtoId\": 1,\n      \"quantidade\": 2,\n      \"precoUnitario\": 4999.90\n    },\n    {\n      \"produtoId\": 2,\n      \"quantidade\": 1,\n      \"precoUnitario\": 19.90\n    }\n  ]\n}"
+      },
+      "headers": [{ "name": "Content-Type", "value": "application/json" }]
+    },
+    {
+      "_type": "request",
+      "_id": "req_ped_05",
+      "parentId": "fld_pedidos",
+      "name": "DELETE — Remover",
+      "method": "DELETE",
+      "url": "http://localhost:8000/pedidos/1",
+      "body": {}
+    }
+  ]
+}
