@@ -11,7 +11,7 @@ export interface IItemPedido extends RowDataPacket {
 export class ItemPedido {
   private readonly _id:           number | null;
   private readonly _pedidoId:     number | null;
-  private _produtoId:             number;
+  private readonly _produtoId:    number;
   private _quantidade:            number;
   private _precoUnitario:         number;
 

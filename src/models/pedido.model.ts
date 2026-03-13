@@ -12,9 +12,9 @@ export interface IPedido extends RowDataPacket {
 export class Pedido {
   private readonly _id:         number | null;
   private readonly _dataPedido: Date;
-  private _clienteId:           number;
-  private _vendedorId:          number;
-  private _itens:               ItemPedido[];
+  private readonly _clienteId:           number;
+  private readonly _vendedorId:          number;
+  private readonly _itens:               ItemPedido[];
   private _valorFinal:          number;
 
   /**
