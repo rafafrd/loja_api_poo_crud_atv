@@ -704,17 +704,6 @@ O projeto foi analisado e aprovado pelo **SonarQube** sem nenhuma issue crítica
 
 O projeto utiliza o **SonarLint** (plugin SonarQube para VS Code) para análise estática em tempo real. As verificações incluem detecção de Code Smells, vulnerabilidades de segurança (incluindo SQL Injection), complexidade ciclomática e duplicação de código.
 
-Para configurar a análise, crie o arquivo `sonar-project.properties` na raiz:
-
-```properties
-sonar.projectKey=sales-order-api
-sonar.projectName=Sales Order API
-sonar.sources=src
-sonar.language=ts
-sonar.typescript.tsconfigPath=tsconfig.json
-sonar.exclusions=node_modules/**,dist/**,uploads/**
-```
-
 ```mermaid
 flowchart LR
     Code["💻 Código TypeScript"] --> SL["🔍 SonarLint\n(VS Code Plugin)"]
