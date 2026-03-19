@@ -118,6 +118,7 @@ O projeto foi construído com foco em:
 O projeto adota uma **arquitetura em 4 camadas** com fluxo de dependência unidirecional. O roteador raiz agrega todos os sub-roteadores, e cada camada possui uma responsabilidade única e bem definida.
 
 ```mermaid
+Flowchat TD
 
     Client(["🌐 Cliente HTTP\n(Insomnia / Postman)"])
 
