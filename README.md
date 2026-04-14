@@ -118,76 +118,87 @@ O projeto foi construído com foco em:
 O projeto adota uma **arquitetura em 4 camadas** com fluxo de dependência unidirecional. O roteador raiz agrega todos os sub-roteadores, e cada camada possui uma responsabilidade única e bem definida.
 
 ```mermaid
-Flowchat TD
+graph TD
+    Client([ 🌐 Cliente HTTP <br/> Insomnia / Postman ])
 
-    Client(["🌐 Cliente HTTP\n(Insomnia / Postman)"])
-
-    subgraph ExpressLayer["⚡ Camada Express"]
-        Router["📍 routes.ts\n(Roteador Raiz)"]
-        R1["categoria.routes.ts"]
-        R2["produto.routes.ts"]
-        R3["cliente.routes.ts"]
-        R4["vendedor.routes.ts"]
-        R5["pedido.routes.ts"]
+    subgraph ExpressLayer [⚡ Camada Express]
+        Router[📍 routes.ts <br/> Roteador Raiz]
+        R1[categoria.routes.ts]
+        R2[produto.routes.ts]
+        R3[cliente.routes.ts]
+        R4[vendedor.routes.ts]
+        R5[pedido.routes.ts]
+        
         Router --> R1 & R2 & R3 & R4 & R5
     end
 
-    subgraph ControllerLayer["🎮 Camada Controller"]
-        CC["CategoriaController"]
-        PC["ProdutoController"]
-        CLC["ClienteController"]
-        VC["VendedorController"]
-        PDC["PedidoController"]
+    subgraph ControllerLayer [🎮 Camada Controller]
+        CC[CategoriaController]
+        PC[ProdutoController]
+        CLC[ClienteController]
+        VC[VendedorController]
+        PDC[PedidoController]
     end
 
-    subgraph ServiceLayer["⚙️ Camada Service"]
-        CS["CategoriaService"]
-        PS["ProdutoService"]
-        CLS["ClienteService"]
-        VS["VendedorService"]
-        PDS["PedidoService"]
+    subgraph ServiceLayer [⚙️ Camada Service]
+        CS[CategoriaService]
+        PS[ProdutoService]
+        CLS[ClienteService]
+        VS[VendedorService]
+        PDS[PedidoService]
     end
 
-    subgraph RepositoryLayer["🗃️ Camada Repository"]
-        CR["CategoriaRepository"]
-        PR["ProdutoRepository"]
-        CLR["ClienteRepository"]
-        VR["VendedorRepository"]
-        PDR["PedidoRepository\n⚛️ Transação Atômica"]
+    subgraph RepositoryLayer [🗃️ Camada Repository]
+        CR[CategoriaRepository]
+        PR[ProdutoRepository]
+        CLR[ClienteRepository]
+        VR[VendedorRepository]
+        PDR["PedidoRepository <br/> ⚛️ Transação Atômica"]
     end
 
-    subgraph ModelLayer["🧬 Camada Model / Domínio"]
-        Pessoa["«abstract»\nPessoa"]
-        Cliente["Cliente"]
-        Vendedor["Vendedor"]
-        Categoria["Categoria"]
-        Produto["Produto"]
-        Pedido["Pedido\ncalcularTotal()"]
-        Item["ItemPedido\nSubtotal getter"]
+    subgraph ModelLayer [🧬 Camada Model / Domínio]
+        Pessoa["abstract <br/> Pessoa"]
+        Cliente[Cliente]
+        Vendedor[Vendedor]
+        Categoria[Categoria]
+        Produto[Produto]
+        Pedido["Pedido <br/> calcularTotal()"]
+        Item["ItemPedido <br/> Subtotal getter"]
+        
         Pessoa -->|herança| Cliente
         Pessoa -->|herança| Vendedor
         Pedido -->|agrega| Item
     end
 
-    DB[("🗄️ MySQL 8\nSingleton Pool")]
+    DB[( 🗄️ MySQL 8 <br/> Singleton Pool )]
 
-    Client -->|"HTTP Request"| Router
+    %% Fluxo de Chamadas
+    Client -->|HTTP Request| Router
     R1 --> CC
     R2 --> PC
     R3 --> CLC
     R4 --> VC
     R5 --> PDC
-    CC --> CS --> CR
-    PC --> PS --> PR
-    CLC --> CLS --> CLR
-    VC --> VS --> VR
-    PDC --> PDS --> PDR
-    CS --> Categoria
-    PS --> Produto
-    CLS --> Cliente
-    VS --> Vendedor
-    PDS --> Pedido
-    CR & PR & CLR & VR & PDR -->|"SQL parametrizado"| DB
+
+    CC --> CS
+    PC --> PS
+    CLC --> CLS
+    VC --> VS
+    PDC --> PDS
+
+    CS --> CR
+    PS --> PR
+    CLS --> CLR
+    VS --> VR
+    PDS --> PDR
+
+    CS -.-> Categoria
+    PS -.-> Produto
+    CLS -.-> Cliente
+    VS -.-> Vendedor
+    PDS -.-> Pedido
+
+    CR & PR & CLR & VR & PDR -->|SQL parametrizado| DB
 ```
 
 ### Responsabilidades por Camada
